@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucullus La Goulette - Menu</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect fill='%232d5a5a' width='200' height='200'/%3E%3Ctext x='100' y='120' font-family='Georgia' font-size='40' fill='%23e8d5c4' text-anchor='middle' font-weight='bold'%3ELucullus%3C/text%3E%3Ctext x='100' y='150' font-family='Georgia' font-size='14' fill='%23e8d5c4' text-anchor='middle'%3ELA GOULETTE%3C/text%3E%3C/svg%3E" alt="Lucullus Logo" class="logo">
+            </div>
+            <div class="restaurant-info">
+                <h1 class="restaurant-name">LUCULLUS</h1>
+                <p class="restaurant-location">LA GOULETTE</p>
+                <p class="restaurant-tagline">In Vino Veritas</p>
+            </div>
+            <div class="social-links">
+                <a href="https://www.facebook.com/lucullus.la.goulettee" target="_blank" class="social-icon" title="Facebook">f</a>
+                <a href="https://www.instagram.com/luculluslagoulette/" target="_blank" class="social-icon" title="Instagram">📷</a>
+                <a href="https://maps.app.goo.gl/9aBSF29im4nzcM3PA" target="_blank" class="social-icon" title="Location">📍</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="menu-container">
+            <div id="menu-content"></div>
+        </div>
+    </main>
+
+    <!-- Promotion Modal/Popup -->
+    <div id="promoModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-body">
+                <h3 id="promo-title"></h3>
+                <p id="promo-description"></p>
+                <div class="promo-discount">
+                    <span id="promo-discount-text" class="discount-badge"></span>
+                </div>
+                <p id="promo-item-name" class="promo-item"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Promotions Poster Modal/Popup -->
+    <div id="promotionsPosterModal" class="promotions-poster-modal" style="display: none;">
+        <div class="poster-backdrop"></div>
+        <div class="poster-container">
+            <button class="poster-close-btn">&times;</button>
+            <div class="poster-image-wrapper">
+                <img id="promotionPosterImage" src="" alt="Promotion" class="promotion-poster-img">
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Ici, On Vous Sert De La Joie</p>
+        <p>&copy; 2025 Lucullus La Goulette - Restaurant Fruits de Mer</p>
+        <div class="footer-contact">
+            <a href="https://www.facebook.com/lucullus.la.goulettee" target="_blank">Facebook</a> | 
+            <a href="https://www.instagram.com/luculluslagoulette/" target="_blank">Instagram</a> | 
+            <a href="https://maps.app.goo.gl/9aBSF29im4nzcM3PA" target="_blank">Localisation</a>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

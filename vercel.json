@@ -1,0 +1,16 @@
+{
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "env": {
+    "MONGODB_URI": {
+      "description": "MongoDB connection string (mongodb+srv://...)",
+      "required": true
+    },
+    "ADMIN_PASSWORD": {
+      "description": "Admin panel password for authentication",
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "lucullus-goulette",
+  "version": "2.0.0",
+  "description": "Production-ready restaurant menu with Next.js and MongoDB",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "seed": "node --require dotenv/config scripts/seedMenuItems.js",
+    "fresh-seed": "node --require dotenv/config scripts/freshSeed.js"
+  },
+  "dependencies": {
+    "next": "^14.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "mongodb": "^6.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "eslint-config-next": "^14.0.0",
+    "dotenv": "^16.0.0"
+  },
+  "engines": {
+    "node": "18.x || 20.x"
+  }
+}

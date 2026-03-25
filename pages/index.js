@@ -1,6 +1,41 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
+import Link from 'next/link';
+import { Playfair_Display } from 'next/font/google';
+import Image from 'next/image';
 import styles from '@/styles/Home.module.css';
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['400', '600', '700'],
+  display: 'swap',
+});
+
+const LOGO_PATH = '/L-logo-removebg-preview.png';
+
+function IconFacebook({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M13.5 22v-8.3h2.8l.4-3.3h-3.2V8.8c0-.9.26-1.5 1.5-1.5H17V4.1A21.3 21.3 0 0014.3 4c-2.4 0-4 1.5-4 4.1v2.3H7.5v3.3H10V22h3.5z" />
+    </svg>
+  );
+}
+
+function IconInstagram({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H7zm5 3.5a4.5 4.5 0 110 9 4.5 4.5 0 010-9zm0 2a2.5 2.5 0 100 5 2.5 2.5 0 000-5zM17.5 6.8a1 1 0 110 2 1 1 0 010-2z" />
+    </svg>
+  );
+}
+
+function IconMapPin({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6a2.5 2.5 0 010 5.5z" />
+    </svg>
+  );
+}
 
 export default function Home() {
   const [menu, setMenu] = useState([]);
@@ -17,13 +52,15 @@ export default function Home() {
   const fetchMenu = async () => {
     try {
       const res = await fetch('/api/menu');
+      if (!res.ok) throw new Error(`API error: ${res.status}`);
       const data = await res.json();
-      const menuArray = Array.isArray(data) ? data : (data?.items || data?.data || []);
+      console.log('Menu data received:', data?.length || 0, 'items');
+      const menuArray = Array.isArray(data) ? data : [];
       setMenu(menuArray);
-      setLoading(false);
     } catch (error) {
       console.error('Error fetching menu:', error);
       setMenu([]);
+    } finally {
       setLoading(false);
     }
   };
@@ -31,8 +68,9 @@ export default function Home() {
   const fetchPromotions = async () => {
     try {
       const res = await fetch('/api/promotions');
+      if (!res.ok) throw new Error(`API error: ${res.status}`);
       const data = await res.json();
-      const promoArray = Array.isArray(data) ? data : (data?.items || data?.data || []);
+      const promoArray = Array.isArray(data) ? data : [];
       setPromotions(promoArray);
       if (promoArray.length > 0) {
         setSelectedPromotion(promoArray[0]);
@@ -47,7 +85,7 @@ export default function Home() {
     const grouped = {};
     const itemsArray = Array.isArray(items) ? items : [];
     itemsArray.forEach(item => {
-      const catName = item.category?.name || 'Unknown';
+      const catName = item.category_name || item.category?.name || 'Unknown';
       if (!grouped[catName]) {
         grouped[catName] = [];
       }
@@ -66,7 +104,7 @@ export default function Home() {
         <Head>
           <title>Lucullus La Goulette</title>
         </Head>
-        <div className={styles.loadingContainer}>
+        <div className={`${styles.loadingContainer} ${playfair.className}`}>
           <div className={styles.loader}></div>
           <p>Chargement du menu...</p>
         </div>
@@ -75,20 +113,46 @@ export default function Home() {
   }
 
   const groupedMenu = groupByCategory(menu);
-  const categoryOrder = ['LES ENTRÉES', 'LES PÂTES', 'SÉLECTION CARNÉE', 'DÉLICES MARINS', 
-                        'LES DESSERTS', 'LES VINS', 'LES MOUSSEUX', 'BIÈRES & SOFTS', 
-                        'SPIRITUEUX', 'LES COCKTAILS'];
-  const categories = categoryOrder.filter(cat => groupedMenu[cat]);
+  const categoryOrder = [
+    'Entrées', 'Pâtes', 'Viandes', 'Poissons', 'Desserts',
+    'Vins rouges', 'Vins rosés', 'Vins blancs', 'Les Mousseux',
+    'Les Softs', 'Les Biéres', 'Les Apéritif et Digestif', 'Les Liquers',
+    'Les Champagnes', 'Côté Bar'
+  ];
+  
+  const categoryLabels = {
+    'Entrées': 'LES ENTRÉES',
+    'Pâtes': 'LES PÂTES',
+    'Viandes': 'SÉLECTION CARNÉE',
+    'Poissons': 'DÉLICES MARINS',
+    'Desserts': 'LES DESSERTS',
+    'Vins rouges': 'VINS ROUGES',
+    'Vins rosés': 'VINS ROSÉS',
+    'Vins blancs': 'VINS BLANCS',
+    'Les Mousseux': 'LES MOUSSEUX',
+    'Les Softs': 'BIÈRES & SOFTS',
+    'Les Biéres': 'LES BIÈRES',
+    'Les Apéritif et Digestif': 'APÉRITIFS & DIGESTIFS',
+    'Les Liquers': 'LES LIQUEURS',
+    'Les Champagnes': 'LES CHAMPAGNES',
+    'Côté Bar': 'CÔTÉ BAR'
+  };
+  
+  const romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV'];
+  
+  const categories = categoryOrder
+    .filter(cat => groupedMenu[cat])
+    .map((cat, idx) => ({ key: cat, label: categoryLabels[cat], roman: romanNumerals[idx] }));
 
-  if (categories.length === 0) {
+  if (categories.length === 0 && !loading) {
     return (
       <>
         <Head>
           <title>Lucullus La Goulette</title>
         </Head>
-        <div className={styles.container}>
+        <div className={`${styles.container} ${playfair.className}`}>
           <div className={styles.emptyState}>
-            <p>Menu en cours de chargement...</p>
+            <p>Aucun élément du menu disponible pour le moment.</p>
           </div>
         </div>
       </>
@@ -103,7 +167,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <div className={styles.container}>
+      <div className={`${styles.container} ${playfair.className}`}>
         {/* Promotion Modal */}
         {selectedPromotion && (
           <div className={styles.modalOverlay} onClick={closeModal}>
@@ -136,59 +200,70 @@ export default function Home() {
           </div>
         )}
 
-        {/* Header */}
         <header className={styles.header}>
-          <div className={styles.headerContent}>
-            <div className={styles.logo}>
-              <h1>🍽️</h1>
-            </div>
-            <div className={styles.headerText}>
-              <h1>Lucullus La Goulette</h1>
-              <p>Restaurant Gourmet</p>
-            </div>
+          <div className={styles.logoBox} aria-label="Lucullus La Goulette">
+            <Image
+              src={LOGO_PATH}
+              alt="Lucullus La Goulette"
+              width={447}
+              height={559}
+              className={styles.logoImage}
+              priority
+              sizes="(max-width: 420px) 88vw, 280px"
+            />
           </div>
-          <nav className={styles.nav}>
-            <a href="/" className={styles.navLink + ' ' + styles.active}>Menu</a>
-            <a href="/admin" className={styles.navLink}>Admin</a>
-          </nav>
+          <h1 className={styles.siteTitle}>LA GOULETTE</h1>
+          <p className={styles.tagline}>&ldquo;In Vino Veritas&rdquo;</p>
+          <div className={styles.socialRow}>
+            <a
+              className={styles.socialBtn}
+              href="https://www.facebook.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+            >
+              <IconFacebook className={styles.socialSvg} />
+            </a>
+            <a
+              className={styles.socialBtn}
+              href="https://www.instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+            >
+              <IconInstagram className={styles.socialSvg} />
+            </a>
+            <a
+              className={styles.socialBtn}
+              href="https://www.google.com/maps/search/?api=1&query=Lucullus+La+Goulette+La+Goulette+Tunis"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Localisation"
+            >
+              <IconMapPin className={styles.socialSvg} />
+            </a>
+          </div>
         </header>
 
-        {/* Menu Categories */}
         <main className={styles.menu}>
-          <div className={styles.menuHeader}>
-            <h2>Notre Menu</h2>
-            <p>Découvrez notre sélection de plats raffinés</p>
-          </div>
-
           <div className={styles.categoriesContainer}>
-            {categories.map((categoryName, idx) => (
-              <div key={categoryName} className={styles.categorySection}>
+            {categories.map((cat, idx) => (
+              <div key={cat.key} className={styles.categorySection}>
                 <button
-                  className={`${styles.categoryHeader} ${expandedCategory === categoryName ? styles.expanded : ''}`}
-                  onClick={() => setExpandedCategory(expandedCategory === categoryName ? null : categoryName)}
+                  type="button"
+                  className={`${styles.categoryHeader} ${expandedCategory === cat.key ? styles.expanded : ''}`}
+                  onClick={() => setExpandedCategory(expandedCategory === cat.key ? null : cat.key)}
+                  aria-expanded={expandedCategory === cat.key}
                 >
-                  <span className={styles.categoryIcon}>
-                    {categoryName === 'LES ENTRÉES' && '🥘'}
-                    {categoryName === 'LES PÂTES' && '🍝'}
-                    {categoryName === 'SÉLECTION CARNÉE' && '🥩'}
-                    {categoryName === 'DÉLICES MARINS' && '🦞'}
-                    {categoryName === 'LES DESSERTS' && '🍰'}
-                    {categoryName === 'LES VINS' && '🍷'}
-                    {categoryName === 'LES MOUSSEUX' && '🥂'}
-                    {categoryName === 'BIÈRES & SOFTS' && '🍺'}
-                    {categoryName === 'SPIRITUEUX' && '🥃'}
-                    {categoryName === 'LES COCKTAILS' && '🍹'}
+                  <span className={styles.categoryLabel}>
+                    {cat.roman} &ndash; {cat.label}
                   </span>
-                  <span className={styles.categoryTitle}>{categoryName}</span>
-                  <span className={styles.categoryCount}>({groupedMenu[categoryName].length})</span>
-                  <span className={styles.expandIcon}>
-                    {expandedCategory === categoryName ? '−' : '+'}
-                  </span>
+                  <span className={styles.chevron} aria-hidden />
                 </button>
 
-                {expandedCategory === categoryName && (
+                {expandedCategory === cat.key && (
                   <div className={styles.categoryItems}>
-                    {groupedMenu[categoryName].map((item) => (
+                    {groupedMenu[cat.key].map((item) => (
                       <div key={item._id} className={styles.menuItem}>
                         <div className={styles.itemContent}>
                           <div className={styles.itemInfo}>
@@ -211,8 +286,11 @@ export default function Home() {
         {/* Footer */}
         <footer className={styles.footer}>
           <div className={styles.footerContent}>
-            <p>&copy; 2026 Lucullus La Goulette. Tous droits réservés.</p>
-            <p>Restaurant Gourmet • La Goulette, Tunis</p>
+            <p>Restaurant Gourmet · La Goulette, Tunis</p>
+            <p className={styles.footerLegal}>&copy; 2026 Lucullus La Goulette</p>
+            <Link href="/admin" className={styles.footerAdmin}>
+              Administration
+            </Link>
           </div>
         </footer>
       </div>

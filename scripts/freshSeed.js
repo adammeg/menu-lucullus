@@ -28,16 +28,21 @@ async function freshSeed() {
 
     // Create categories
     const categories = [
-      { name: 'LES ENTRÉES', order_index: 1 },
-      { name: 'LES PÂTES', order_index: 2 },
-      { name: 'SÉLECTION CARNÉE', order_index: 3 },
-      { name: 'DÉLICES MARINS', order_index: 4 },
-      { name: 'LES DESSERTS', order_index: 5 },
-      { name: 'LES VINS', order_index: 6 },
-      { name: 'LES MOUSSEUX', order_index: 7 },
-      { name: 'BIÈRES & SOFTS', order_index: 8 },
-      { name: 'SPIRITUEUX', order_index: 9 },
-      { name: 'LES COCKTAILS', order_index: 10 }
+      { name: 'Entrées', order_index: 1 },
+      { name: 'Pâtes', order_index: 2 },
+      { name: 'Viandes', order_index: 3 },
+      { name: 'Poissons', order_index: 4 },
+      { name: 'Desserts', order_index: 5 },
+      { name: 'Vins rouges', order_index: 6 },
+      { name: 'Vins rosés', order_index: 7 },
+      { name: 'Vins blancs', order_index: 8 },
+      { name: 'Les Mousseux', order_index: 9 },
+      { name: 'Les Softs', order_index: 10 },
+      { name: 'Les Biéres', order_index: 11 },
+      { name: 'Les Apéritif et Digestif', order_index: 12 },
+      { name: 'Les Liquers', order_index: 13 },
+      { name: 'Les Champagnes', order_index: 14 },
+      { name: 'Côté Bar', order_index: 15 }
     ];
 
     const catResult = await db.collection('categories').insertMany(categories);

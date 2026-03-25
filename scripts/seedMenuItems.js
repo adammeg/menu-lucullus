@@ -21,7 +21,7 @@ async function seedDatabase() {
 
     // Menu items grouped by category
     const menuData = {
-      'LES ENTRÉES': [
+      'Entrées': [
         { name: 'Huîtres', price: 6, description: 'pièce' },
         { name: 'Carpaccio de bœuf', price: 36 },
         { name: 'Salade César', price: 32 },
@@ -43,7 +43,7 @@ async function seedDatabase() {
         { name: 'Assiette de saumon fumé', price: 49 },
         { name: 'Assiette de boutargue', price: 42 }
       ],
-      'LES PÂTES': [
+      'Pâtes': [
         { name: 'Spaghetti puttanesca', price: 32 },
         { name: 'Spaghetti chevrette', price: 36 },
         { name: 'Spaghetti bolognaise', price: 36, description: 'boulettes' },
@@ -53,25 +53,25 @@ async function seedDatabase() {
         { name: 'Spaghetti boutargue', price: 44 },
         { name: 'Spaghetti fruits de mer', price: 46 }
       ],
-      'SÉLECTION CARNÉE': [
+      'Viandes': [
         { name: 'Escalope à la crème', price: 36 },
         { name: 'Escalope milanaise', price: 38 },
         { name: 'Émincé de bœuf', price: 42 },
         { name: 'Filet', price: 59, description: 'sauce au choix' },
         { name: 'Souris d\'agneau', price: 69 }
       ],
-      'DÉLICES MARINS': [
+      'Poissons': [
         { name: 'Poisson grillé', price: 52, description: 'loup / daurade' },
         { name: 'Quadrio de crevettes', price: 56 },
         { name: 'Filet de daurade farci au saumon fumé', price: 64 }
       ],
-      'LES DESSERTS': [
+      'Desserts': [
         { name: 'Sorbet citron', price: 14 },
         { name: 'Fondant au chocolat', price: 20 },
         { name: 'Tiramisu', price: 22 },
         { name: 'Assiette de fruits de saison', price: 40 }
       ],
-      'LES VINS': [
+      'Vins rouges': [
         { name: 'Gorilla', price: 56 },
         { name: 'Magon Rouge', price: 60 },
         { name: 'Shadrapa', price: 62 },
@@ -81,35 +81,41 @@ async function seedDatabase() {
         { name: 'Magnifique', price: 78 },
         { name: 'Selian Réserve', price: 86 },
         { name: 'Sultan Rouge', price: 86 },
-        { name: 'Vieux Magnifique', price: 95 },
-        { name: 'Drink pink', price: 56, description: 'Vin rosé' },
-        { name: 'Magon Rosé', price: 60, description: 'Vin rosé' },
-        { name: 'Désir', price: 62, description: 'Vin rosé' },
-        { name: 'Jour et Nuit Rosé', price: 70, description: 'Vin rosé' },
-        { name: 'Gioia', price: 78, description: 'Vin rosé' },
-        { name: 'Sultan Rosé', price: 86, description: 'Vin rosé' },
-        { name: 'The Madcat', price: 56, description: 'Vin blanc' },
-        { name: 'The great white', price: 58, description: 'Vin blanc' },
-        { name: 'Magon Blanc', price: 60, description: 'Vin blanc' },
-        { name: 'Selian Blanc', price: 65, description: 'Vin blanc' },
-        { name: 'Chardonnay', price: 65, description: 'Vin blanc' },
-        { name: 'Muscat', price: 68, description: 'Vin blanc' },
-        { name: 'Jour et Nuit Blanc', price: 70, description: 'Vin blanc' },
-        { name: 'Magnifique Blanc', price: 78, description: 'Vin blanc' },
-        { name: 'Sultan Blanc', price: 86, description: 'Vin blanc' },
-        { name: 'Verdejo', price: 86, description: 'Vin blanc' }
+        { name: 'Vieux Magnifique', price: 95 }
       ],
-      'LES MOUSSEUX': [
+      'Vins rosés': [
+        { name: 'Drink pink', price: 56 },
+        { name: 'Magon Rosé', price: 60 },
+        { name: 'Désir', price: 62 },
+        { name: 'Jour et Nuit Rosé', price: 70 },
+        { name: 'Gioia', price: 78 },
+        { name: 'Sultan Rosé', price: 86 }
+      ],
+      'Vins blancs': [
+        { name: 'The Madcat', price: 56 },
+        { name: 'The great white', price: 58 },
+        { name: 'Magon Blanc', price: 60 },
+        { name: 'Selian Blanc', price: 65 },
+        { name: 'Chardonnay', price: 65 },
+        { name: 'Muscat', price: 68 },
+        { name: 'Jour et Nuit Blanc', price: 70 },
+        { name: 'Magnifique Blanc', price: 78 },
+        { name: 'Sultan Blanc', price: 86 },
+        { name: 'Verdejo', price: 86 }
+      ],
+      'Les Mousseux': [
         { name: 'Kiss blanc', price: 96 },
         { name: 'Kiss rosé', price: 96 },
         { name: 'Trocadéro', price: 110 }
       ],
-      'BIÈRES & SOFTS': [
+      'Les Softs': [
         { name: 'Eau plate', price: 6 },
         { name: 'Eau gazeifiée', price: 6 },
         { name: 'Café', price: 6 },
         { name: 'Soda', price: 8 },
-        { name: 'Boisson énergétique', price: 14 },
+        { name: 'Boisson énergétique', price: 14 }
+      ],
+      'Les Biéres': [
         { name: 'Celtia', price: 5.5, description: 'Happy hour (jusqu\'à 19h)' },
         { name: 'Amstel', price: 8 },
         { name: 'Beck\'s', price: 6.5, description: 'Happy hour (jusqu\'à 19h)' },
@@ -117,13 +123,15 @@ async function seedDatabase() {
         { name: 'Celtia 50cl', price: 8, description: 'Happy hour (jusqu\'à 19h)' },
         { name: 'Heineken 50cl', price: 8, description: 'Happy hour (jusqu\'à 19h)' }
       ],
-      'SPIRITUEUX': [
+      'Les Apéritif et Digestif': [
         { name: 'Pastis', price: 18 },
         { name: 'Jet 27', price: 18 },
         { name: 'Limoncello', price: 18 },
         { name: 'Thibar', price: 16 },
         { name: 'Martini Bianco', price: 20 },
-        { name: 'Martini Rosso', price: 20 },
+        { name: 'Martini Rosso', price: 20 }
+      ],
+      'Les Liquers': [
         { name: 'Cognac', price: 26 },
         { name: 'Vodka Danska', price: 18, description: 'Dose' },
         { name: 'Vodka Absolut', price: 20, description: 'Dose' },
@@ -137,11 +145,13 @@ async function seedDatabase() {
         { name: 'Jack Daniel\'s', price: 25, description: 'Dose' },
         { name: 'Jack Daniel\'s Honey', price: 25, description: 'Dose' },
         { name: 'Gin Gordon\'s', price: 20, description: 'Dose' },
-        { name: 'Gin Hendrick\'s', price: 24, description: 'Dose' },
+        { name: 'Gin Hendrick\'s', price: 24, description: 'Dose' }
+      ],
+      'Les Champagnes': [
         { name: 'Champagne Francais', price: 600 },
         { name: 'Moet et Chandon', price: 700 }
       ],
-      'LES COCKTAILS': [
+      'Côté Bar': [
         { name: 'Purple camel', price: 25, description: 'tequila, creme de, triple sec, citron, geranium' },
         { name: 'Mermaid call', price: 25, description: 'whisky, blue curacao, orange, citron' },
         { name: 'Amaretto sour', price: 25, description: 'amaretto, citron' },
@@ -195,11 +205,16 @@ async function seedDatabase() {
     console.log('  - Viandes: 5 items');
     console.log('  - Poissons: 3 items');
     console.log('  - Desserts: 4 items');
-    console.log('  - Vins (includes rosé & blanc): 27 items');
-    console.log('  - Mousseux: 3 items');
-    console.log('  - Bières & Softs: 11 items');
-    console.log('  - Spiritueux: 22 items');
-    console.log('  - Cocktails: 13 items');
+    console.log('  - Vins rouges: 10 items');
+    console.log('  - Vins rosés: 6 items');
+    console.log('  - Vins blancs: 10 items');
+    console.log('  - Les Mousseux: 3 items');
+    console.log('  - Les Softs: 5 items');
+    console.log('  - Les Biéres: 6 items');
+    console.log('  - Les Apéritif et Digestif: 6 items');
+    console.log('  - Les Liquers: 14 items');
+    console.log('  - Les Champagnes: 2 items');
+    console.log('  - Côté Bar: 13 items');
     console.log(`  ────────────────────\n  Total: ${totalInserted} items`);
 
   } catch (error) {

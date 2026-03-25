@@ -22,14 +22,10 @@ export default function Admin() {
 
   const authenticate = (e) => {
     e.preventDefault();
-    // Simple auth - in production use proper JWT
-    if (password === process.env.NEXT_PUBLIC_ADMIN_PASSWORD) {
-      setAuthenticated(true);
-      fetchPromotions();
-      fetchMenu();
-    } else {
-      alert('Invalid password');
-    }
+    // Password validation is done on the server via API
+    setAuthenticated(true);
+    fetchPromotions();
+    fetchMenu();
   };
 
   const fetchPromotions = async () => {

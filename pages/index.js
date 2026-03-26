@@ -217,7 +217,7 @@ export default function Home() {
           <div className={styles.socialRow}>
             <a
               className={styles.socialBtn}
-              href="https://www.facebook.com"
+              href="https://www.facebook.com/lucullus.la.goulettee"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
@@ -226,7 +226,7 @@ export default function Home() {
             </a>
             <a
               className={styles.socialBtn}
-              href="https://www.instagram.com"
+              href="https://www.instagram.com/lucullus_goulette/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
@@ -235,7 +235,7 @@ export default function Home() {
             </a>
             <a
               className={styles.socialBtn}
-              href="https://www.google.com/maps/search/?api=1&query=Lucullus+La+Goulette+La+Goulette+Tunis"
+              href="https://www.google.com/maps/place/R884%2BV33+Lucullus,+Av.+Franklin+Roosevelt,+La+Goulette/data=!4m2!3m1!1s0x12fd5b0050b9eabf:0x870b4d4353199aa8"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Localisation"

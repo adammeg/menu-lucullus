@@ -1,6 +1,7 @@
 // API Configuration
 const API_URL = 'http://localhost:5000/api';
 //test
+// new one 
 let menuData = {};
 let promotionsData = [];
 
